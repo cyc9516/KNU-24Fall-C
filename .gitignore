@@ -1,0 +1,9 @@
+#.gitclone
+#ignore All
+*
+!*/
+
+# Allow list
+!.gitignore
+!.gitattributes
+!*.c
