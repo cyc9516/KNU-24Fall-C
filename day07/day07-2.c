@@ -5,8 +5,8 @@
 
 int main()
 {
-	double x = 0;//xÁÂÇ¥
-	double y = 0;//yÁÂÇ¥
+	double x = 0;//xì¢Œí‘œ
+	double y = 0;//yì¢Œí‘œ
 	double z = 0;
 	double pi;
 	int count = 0, circle = 0;
@@ -18,7 +18,7 @@ int main()
 		x = (double)rand() / (double)RAND_MAX;
 		y = (double)rand() / (double)RAND_MAX;
 		z = (double)sqrt(pow(x, 2)+pow(y,2));
-		pi =4 * ((double)circle / (double)count); //Ä³½ºÆÃ ¸ô¶ó¼­ 0À¸·Î ³ª´²Áö´Â ¿¡·¯¹ß»ýÇßÀ½
+		pi =4 * ((double)circle / (double)count); 
 		count++;
 
 		if (z < 1) {
@@ -26,18 +26,18 @@ int main()
 		}
 		
 		if (count%10000000 == 0) {
-			printf("%d%% ÁøÇà.. pi=%lf ",count/10000000 , pi);
+			printf("%d%% ì§„í–‰.. pi=%lf ",count/10000000 , pi);
 			gage = count / 10000000;
 
-			for (int incom = 0; incom < gage/5; incom++) {
-				printf("¡á");	
+			for (int com = 0; com < gage/5; com++) {
+				printf("â– ");	
 			}
-			for (int com = 0; com < 20 - gage/5; com++) {
-				printf("¡à");
+			for (int incom = 0; incom < 20 - gage/5; incom++) {
+				printf("â–¡");
 			}
 			printf("\n");
 		}
 		
 	}
-
+	return 0;
 }
