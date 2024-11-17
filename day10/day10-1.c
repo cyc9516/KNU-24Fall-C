@@ -81,22 +81,7 @@ void print_nodes()
 	printf("------------------------\n");
 }
 
-/*struct NODE* find_node(char* name)
-{
-	struct NODE* prev = head;
-	struct NODE* cur = head->link;
-	while (cur != NULL) {
-		if (strcmp(name, cur->name) == 0) {
-			prev->link = cur->link;
-			free(cur);
-			return 1;
-		}
-		prev = cur;
-		cur = cur->link;
-	}
-	return 0;
-}
-*/
+
 int delete_node(char* name)
 {
 	struct NODE* prev = head;

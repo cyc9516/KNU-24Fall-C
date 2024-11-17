@@ -14,23 +14,23 @@ enum rank {
 };
 
 
-struct Costomer
+struct Customer
 {
 	char customerName[NAME_MAX];
 	int product;
 	int point;
 	enum rank rank;
-	struct Costomer* prev;
-	struct Costomer* next;
+	struct Customer* prev;
+	struct Customer* next;
 
 };
 
-struct Costomer* head; 
+struct Customer* head; 
 
-struct Costomer* create_node(char* customerName, enum rank rank, int product, int point)
+struct Customer* create_node(char* customerName, enum rank rank, int product, int point)
 {
-	struct Costomer* new_node = (struct Costomer*)malloc(sizeof(struct Costomer));
-	strcpy_s(new_node->customerName, NAME_MAX, customerName); //문자열 복사
+	struct Customer* new_node = (struct Customer*)malloc(sizeof(struct Customer));
+	strcpy_s(new_node->customerName, NAME_MAX, customerName);
 	new_node->rank = rank;
 	new_node->product = product;
 	new_node->point = point;
@@ -40,22 +40,21 @@ struct Costomer* create_node(char* customerName, enum rank rank, int product, in
 	return new_node;
 }
 
-struct Costomer* last_node()
+struct Customer* last_node()
 {
-	struct Costomer* cur = head;
+	struct Customer* cur = head;
 	while (cur->next != NULL) {
 		cur = cur->next;
 	}
 	return cur;
 }
 
-struct Costomer* find_node_insert(enum rank rank, int product, int point)
+struct Customer* find_node_insert(enum rank rank, int product, int point)
 {
-	struct Costomer* prev = head;
-	struct Costomer* cur = head->next;
-	if (cur == NULL) {
-		return head;
-	}
+	struct Customer* prev = head;
+	struct Customer* cur = head->next;
+	if (cur == NULL) return head;
+	
 
 	while (cur != NULL) {
 
@@ -84,9 +83,9 @@ struct Costomer* find_node_insert(enum rank rank, int product, int point)
 
 
 
-void insert_node_prioritiy(struct Costomer* new_node)
+void insert_node_prioritiy(struct Customer* new_node)
 {
-	struct Costomer* n = find_node_insert(new_node->rank, new_node->product, new_node->point);
+	struct Customer* n = find_node_insert(new_node->rank, new_node->product, new_node->point);
 	new_node->next = n->next;
 
 	if (n->next != NULL) {
@@ -98,16 +97,16 @@ void insert_node_prioritiy(struct Costomer* new_node)
 }
 
 
-void insert_node_last(struct Costomer* new_node)
+void insert_node_last(struct Customer* new_node)
 {
-	struct Costomer* last = last_node();
+	struct Customer* last = last_node();
 	last->next = new_node;
 }
 
 
 void print_nodes()
 {
-	struct Costomer* cur = head->next;
+	struct Customer* cur = head->next;
 	printf("------------------------\n");
 	printf("이름\t등급\t전체 주문량\t포인트\n");
 	while (cur != NULL) {
@@ -120,11 +119,11 @@ void print_nodes()
 
 void delete_node(char* customerName)
 {
-	struct Costomer* cur = head->next;
-	struct Costomer* temp;
+	struct Customer* cur = head->next;
+	struct Customer* temp;
 	
 	while (cur != NULL) {
-		if (strcmp(cur->customerName, customerName) == 0) {//str비교
+		if (strcmp(cur->customerName, customerName) == 0) {
 			
 			if (cur->prev != NULL) {
 				cur->prev->next = cur->next;
@@ -146,7 +145,7 @@ void delete_node(char* customerName)
 
 int main()
 {
-	head = (struct Costomer*)malloc(sizeof(struct Costomer));
+	head = (struct Customer*)malloc(sizeof(struct Customer));
 	head->next = NULL;
 
 	int inst;
@@ -183,7 +182,7 @@ int main()
 			break;
 
 		case 2://고객 삭제
-			printf("삭제할 학생의 이름 입력:");
+			printf("삭제할 고객의 이름 입력:");
 			scanf_s("%s", name, NAME_MAX);
 			delete_node(name);
 			break;
