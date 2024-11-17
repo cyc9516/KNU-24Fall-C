@@ -17,7 +17,7 @@ enum rank {
 struct Customer
 {
 	char customerName[NAME_MAX];
-	int product;
+	int order_amount;
 	int point;
 	enum rank rank;
 	struct Customer* prev;
@@ -27,12 +27,12 @@ struct Customer
 
 struct Customer* head; 
 
-struct Customer* create_node(char* customerName, enum rank rank, int product, int point)
+struct Customer* create_node(char* customerName, enum rank rank, int order_amount, int point)
 {
 	struct Customer* new_node = (struct Customer*)malloc(sizeof(struct Customer));
 	strcpy_s(new_node->customerName, NAME_MAX, customerName);
 	new_node->rank = rank;
-	new_node->product = product;
+	new_node->order_amount = order_amount;
 	new_node->point = point;
 	new_node->prev = NULL;
 	new_node->next = NULL;
@@ -49,7 +49,7 @@ struct Customer* last_node()
 	return cur;
 }
 
-struct Customer* find_node_insert(enum rank rank, int product, int point)
+struct Customer* find_node_insert(enum rank rank, int order_amount, int point)
 {
 	struct Customer* prev = head;
 	struct Customer* cur = head->next;
@@ -85,7 +85,7 @@ struct Customer* find_node_insert(enum rank rank, int product, int point)
 
 void insert_node_prioritiy(struct Customer* new_node)
 {
-	struct Customer* n = find_node_insert(new_node->rank, new_node->product, new_node->point);
+	struct Customer* n = find_node_insert(new_node->rank, new_node->order_amount, new_node->point);
 	new_node->next = n->next;
 
 	if (n->next != NULL) {
@@ -111,7 +111,7 @@ void print_nodes()
 	printf("이름\t등급\t전체 주문량\t포인트\n");
 	while (cur != NULL) {
 
-		printf("%s\t%d\t%d\t\t%d\t\n", cur->customerName, cur->rank, cur->product, cur->point);
+		printf("%s\t%d\t%d\t\t%d\t\n", cur->customerName, cur->rank, cur->order_amount, cur->point);
 		cur = cur->next;
 	}
 	printf("------------------------\n");
@@ -152,7 +152,7 @@ int main()
 	int iteration = 1;
 	char name[NAME_MAX];
 	int grade;
-	int product;
+	int order_amount;
 	int point;
 
 
@@ -173,12 +173,12 @@ int main()
 			printf("고객 등급(FRIEND=5, BRONZE=4, SILVER=3, GOLD=2, PLATINUM=1): ");
 			scanf_s("%d",&grade);
 			printf("전체 주문량: ");
-			scanf_s("%d",&product);
+			scanf_s("%d",&order_amount);
 			printf("고객 포인트: ");
 			scanf_s("%d",&point);
 
 			//새 노드 생성
-			insert_node_prioritiy(create_node(name, grade, product, point));
+			insert_node_prioritiy(create_node(name, grade, order_amount, point));
 			break;
 
 		case 2://고객 삭제
@@ -195,10 +195,10 @@ int main()
 			printf("고객 등급(FRIEND=1, BRONZE=2, SILVER=3, GOLD=4, PLATINUM=5): ");
 			scanf_s("%d", &grade);
 			printf("전체 주문량: ");
-			scanf_s("%d", &product);
+			scanf_s("%d", &order_amount);
 			printf("고객 포인트: ");
 			scanf_s("%d", &point);
-			insert_node_prioritiy(create_node(name, grade, product, point));
+			insert_node_prioritiy(create_node(name, grade, order_amount, point));
 			break;
 
 		case 4://전체 리스트 출력
